@@ -26,7 +26,8 @@
             ],
             "styles": [
               "src/styles.css"
-            ]
+            ],
+            "baseHref": "/app/"
           },
           "configurations": {
             "production": {
@@ -62,7 +63,9 @@
               "buildTarget": "frontend:build:development"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "development",
+            "options": {
+            }
         },
         "extract-i18n": {
           "builder": "@angular/build:extract-i18n"

@@ -1,12 +1,11 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import {Component} from '@angular/core';
+import {TimerList} from '../features/timers/timer-list/timer-list';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [TimerList],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 export class App {
-  protected readonly title = signal('frontend');
 }

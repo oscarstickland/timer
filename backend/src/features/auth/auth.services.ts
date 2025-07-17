@@ -1,6 +1,5 @@
 import bcrypt from 'bcrypt';
 import {z} from "zod";
-import * as jwt from "jsonwebtoken";
 import {PrismaInstance} from "../../db/prisma";
 
 const UserSelectFields = {
@@ -33,33 +32,6 @@ export const createUser = async (user: z.infer<typeof newUserSchema>) => {
             password: hashedPassword,
         }
     });
-}
-
-export const userCredentialSchema = z.object({
-    email: z.string(),
-    password: z.string(),
-})
-
-/**
- * Fetch the user based on the provided credentials.
- * Will compare the provided password with the hashed db password
- * @param credentials email & password
- *
- * @returns jwt token (or null)
- */
-export const generateUserToken = async (credentials: z.infer<typeof userCredentialSchema>) => {
-    const user = await PrismaInstance.user.findUnique({
-        where: { email: credentials.email },
-    });
-    if (!user) return null;
-
-    // check if pwd matches
-    const passwordMatched = await bcrypt.compare(credentials.password, user.password);
-    if (!passwordMatched) return null;
-
-    // if it does - then generate JWT token
-    const secret = (process.env.JWT_SECRET as string);
-    return jwt.sign({ id: user.id }, secret, { expiresIn: "10d" });
 }
 
 /**

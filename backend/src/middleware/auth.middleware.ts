@@ -7,12 +7,12 @@ const payloadSchema = z.object({
 })
 
 export const authenticate = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
-    const header = req.headers.authorization;
-    if (!header?.startsWith('Bearer ')) return res.sendStatus(401);
+    // Check if the token is in the cookies
+    const token = req.cookies['token'];
+    if (!token) { return res.status(401).json({ error: 'No token' }); }
 
     // Verify the JWT Token
     try {
-        const token = header.split(' ')[1];
         const payload = jwt.verify(token, process.env.JWT_SECRET!);
         req.user = payloadSchema.parse(payload);
 

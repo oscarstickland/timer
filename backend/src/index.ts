@@ -1,20 +1,23 @@
 import express from 'express';
+import morgan from "morgan";
+import path from "node:path";
 import 'dotenv/config';
 
-import { authenticate } from "./middleware/auth.middleware";
-
-import authRouter from "./features/auth/auth.router";
-import timerRouter from "./features/timer/timer.router";
-import sessionsRouter from './features/sessions/sessions.router';
+import apiRouter from "./api.router";
+import frontendRouter from "./frontend/frontend.router"
+import angularRouter from "./frontend/angular.router";
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.use(express.json());
+app.use(morgan("dev"));
 
-app.use("/auth", authRouter);
-app.use("/timer", authenticate, timerRouter);
-app.use("/sessions", authenticate, sessionsRouter);
+app.set("view engine", "ejs");
+app.set('views', path.join(__dirname, 'frontend/views'));
+
+app.use("/api", apiRouter);
+app.use('/app', angularRouter);
+app.use("/", frontendRouter);
 
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);
