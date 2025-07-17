@@ -32,7 +32,11 @@ export const listTimers = async (req: express.Request, res: express.Response) =>
     }
 }
 
-
+/**
+ * Retrieve a specific single timer
+ * @param req
+ * @param res
+ */
 export const getSingleTimer = async (req: express.Request, res: express.Response) => {
     try {
         const timerId = z.coerce.number().parse(req.params['timerId']);

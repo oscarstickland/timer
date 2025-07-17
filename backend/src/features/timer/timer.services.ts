@@ -3,7 +3,8 @@ import {z} from "zod";
 
 const TimerSelectFields = {
     id: true,
-    name: true
+    name: true,
+    sessions: true
 }
 
 export const createTimerSchema = z.object({
@@ -28,7 +29,7 @@ export const createTimer = (data: z.infer<typeof createTimerSchema>, userId: num
 export const getTimersByUserId = (userId: number) => {
     return PrismaInstance.timer.findMany({
         where: { userId: userId },
-        select: TimerSelectFields
+        select: TimerSelectFields,
     });
 }
 

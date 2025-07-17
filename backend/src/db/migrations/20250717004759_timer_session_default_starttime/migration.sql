@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "TimerSession" ALTER COLUMN "startTime" SET DEFAULT CURRENT_TIMESTAMP;
