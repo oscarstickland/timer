@@ -1,9 +1,0 @@
-@if (timers$ | async; as timers) {
-    <ul>
-        @for (timer of timers; track timer.id) {
-            <li>{{ timer.name }}</li>
-        }
-    </ul>
-} @else {
-    <p>Hello World</p>
-}

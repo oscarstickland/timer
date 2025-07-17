@@ -8,7 +8,17 @@ import {AsyncPipe} from '@angular/common';
 @Component({
     selector: 'timer-list',
     imports: [AsyncPipe],
-    templateUrl: './timer-list.component.html'
+    template: `
+        @if (timers$ | async; as timers) {
+            <ul>
+                @for (timer of timers; track timer.id) {
+                    <li>{{ timer.name }}</li>
+                }
+            </ul>
+        } @else {
+            <p>Hello World</p>
+        }
+    `
 })
 export class TimerList {
     private timerService = inject(TimerService);
