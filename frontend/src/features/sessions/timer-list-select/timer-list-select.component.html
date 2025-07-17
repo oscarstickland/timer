@@ -1,0 +1,12 @@
+@if (timers$ | async; as timers) {
+    <ul>
+        @for (timer of timers; track timer.id) {
+            <li>
+                <button (click)="onTimerSelected(timer)">Start</button>
+                {{ timer.name }}
+            </li>
+        }
+    </ul>
+} @else {
+    <p>Timers Loading</p>
+}
